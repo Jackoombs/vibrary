@@ -62,12 +62,16 @@ const Book = ({ title, author, imageSrc, spineColor, titleColor, index, activeIn
 
         <div 
           style={{ backgroundColor: spineColor, transform: rotateIndex() ?  "rotateY(-60deg)" : "rotateY(0deg)" }} 
-          className={clsx("z-10 duration-500 absolute w-14 h-60 border border-black origin-right flex justify-center", `bg-[${spineColor}]`)}>
+          className={clsx("z-10 duration-500 absolute w-14 h-60 origin-right flex justify-center brightness-[0.8] contrast-[2]", `bg-[${spineColor}]`)}>
           <p className={clsx("py-3 text-sm line-clamp-2", `text-[${titleColor}]`)} style={{color: titleColor, writingMode: "sideways-rl" }}>{title}</p>
+          <span
+              aria-hidden
+              className="pointer-events-none fixed top-0 right-0 z-50 h-full w-full opacity-40 [filter:url(#paper)]"
+          />
         </div>
         <div 
           style={{ transform: rotateIndex() ? "rotateY(30deg)" : "rotateY(90deg)" }} 
-          className="duration-500 absolute left-14 w-40 h-60 origin-left bg-slate-400 border border-black brightness-[0.8] contrast-[1.5]">
+          className="duration-500 absolute left-14 w-40 h-60 origin-left brightness-[0.8] contrast-[1.75]">
           {(!hover || !alwaysDisplay) && 
           <Image className="pointer-events-none w-40 h-60" src={imageSrc} fill={true} style={{objectFit: "cover"}} sizes="160px 240px" alt="" />}
           <div 
@@ -78,6 +82,12 @@ const Book = ({ title, author, imageSrc, spineColor, titleColor, index, activeIn
           <span
               aria-hidden
               className="pointer-events-none fixed top-0 right-0 z-50 h-full w-full opacity-40 [filter:url(#paper)]"
+          />
+          <span
+            aria-hidden
+            className="pointer-events-none absolute top-0 left-0 z-50 h-full w-full"
+            style={{
+              background: `linear-gradient(to right, rgba(255, 255, 255, 0) 2px, rgba(255, 255, 255, 0.5) 3px, rgba(255, 255, 255, 0.25) 4px, rgba(255, 255, 255, 0.25) 6px, transparent 7px, transparent 9px, rgba(255, 255, 255, 0.25) 9px, transparent 12px)`,}}
           />
         </div>
       </div>
