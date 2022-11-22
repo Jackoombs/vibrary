@@ -33,21 +33,3 @@ const Home: NextPage = () => {
 };
 
 export default Home;
-
-
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const session = await getSession(context)
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: '/api/auth/signin',
-        permanent: false,
-      },
-    }
-  }
-
-  return {
-    props: { session }
-  }
-}
