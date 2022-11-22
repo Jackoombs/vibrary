@@ -7,7 +7,10 @@ module.exports = {
       fontFamily: {
         sans: ['var(--font-ibm)', ...fontFamily.sans],
       },
+      width: {
+        'ctnr': 'min(90%, 64rem)',
+      }
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/line-clamp'),],
 };
