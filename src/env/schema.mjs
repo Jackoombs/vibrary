@@ -19,8 +19,10 @@ export const serverSchema = z.object({
     // VERCEL_URL doesnt include `https` so it cant be validated as a URL
     process.env.VERCEL ? z.string() : z.string().url(),
   ),
-  DISCORD_CLIENT_ID: z.string(),
-  DISCORD_CLIENT_SECRET: z.string(),
+  GOOGLE_CLIENT_ID: z.string(),
+  GOOGLE_CLIENT_SECRET: z.string(),
+  GITHUB_CLIENT_ID: z.string(),
+  GITHUB_CLIENT_SECRET: z.string()
 });
 
 /**
@@ -30,6 +32,7 @@ export const serverSchema = z.object({
  */
 export const clientSchema = z.object({
   // NEXT_PUBLIC_BAR: z.string(),
+  NEXT_PUBLIC_BOOKS_API_KEY: z.string()
 });
 
 /**
@@ -39,5 +42,5 @@ export const clientSchema = z.object({
  * @type {{ [k in keyof z.infer<typeof clientSchema>]: z.infer<typeof clientSchema>[k] | undefined }}
  */
 export const clientEnv = {
-  // NEXT_PUBLIC_BAR: process.env.NEXT_PUBLIC_BAR,
+  NEXT_PUBLIC_BOOKS_API_KEY: process.env.NEXT_PUBLIC_BOOKS_API_KEY,
 };
