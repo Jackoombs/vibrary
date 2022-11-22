@@ -36,6 +36,19 @@ export const shelfRouter = router({
           }
         },
       })
+    }),
+  add: publicProcedure
+    .input(z.object({
+      name: z.string().max(50)
+    })) 
+    .mutation( ({ctx, input}) => {
+      if (ctx.session?.user?.id){
+        return ctx.prisma.shelf.create({
+          data : {
+            name: input.name,
+            userId: ctx.session?.user?.id
+          }
+        })
+      }
     })
-  
 })
