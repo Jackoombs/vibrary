@@ -12,7 +12,7 @@ export const bookRouter = router({
       publicationDate: z.string().optional(),
       shelfName: z.string()
     }))
-    .mutation(async ({ctx,  input }) => {
+    .mutation(({ctx,  input }) => {
       if (ctx.session?.user?.id){
         return ctx.prisma.book.create({
           data: {
