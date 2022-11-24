@@ -1,7 +1,7 @@
 import clsx from "clsx"
 import { RiAddCircleFill } from "react-icons/ri" 
-import { type BookType } from "../types/book"
-import { trpc } from "../utils/trpc"
+import { type BookType } from "../../types/book"
+import { trpc } from "../../utils/trpc"
 
   interface Props {
     setSearchActive: React.Dispatch<React.SetStateAction<boolean>>
@@ -32,8 +32,8 @@ const BookAddBtn = ({ title, author, id, imageSrc, publicationDate, pageCount, s
 
   return (
     <button 
-      className={clsx("flex items-center gap-2 mt-3 font-bold bg-violet-600 text-slate-50 text-lg rounded xl py-2 px-5 duration-75 shadow-xl"
-      ,"hover:bg-transparent hover:text-stone-700 hover:shadow-none")}
+      className={clsx("flex items-center gap-2 mt-3 font-bold text-lg rounded xl py-1 px-2 duration-150"
+      ,"hover:bg-primary hover:text-secondary hover:shadow-none")}
       onClick={handleClick}
     >
       <RiAddCircleFill />Add Book

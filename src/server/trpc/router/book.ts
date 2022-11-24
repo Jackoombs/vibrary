@@ -23,8 +23,8 @@ export const bookRouter = router({
             imageSrc: input.imageSrc,
             pageCount: input.pageCount,
             publicationDate: input.publicationDate,
-            spineColor: "#0c4a6e",
-            titleColor: "#FFFFFF",
+            spineColor: "#0f234e",
+            titleColor: "#f9f0ee",
             shelves: {
               connect: [
                 {name: input.shelfName},

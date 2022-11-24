@@ -5,10 +5,15 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-ibm)', ...fontFamily.sans],
+        sans: ['var(--font-montserrat)', ...fontFamily.sans],
+        space: ['var(--font-space)']
       },
       width: {
         'ctnr': 'min(90%, 64rem)',
+      },
+      colors: {
+        primary: "#0f234e",
+        secondary: "#f9f0ee"
       }
     },
   },

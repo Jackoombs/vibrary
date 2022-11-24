@@ -68,7 +68,7 @@ model Book {
   title           String
   author          String?
   imageSrc        String
-  spineColor      String
+  spineColor      String 
   titleColor      String
   pageCount       Int?
   publicationDate String?

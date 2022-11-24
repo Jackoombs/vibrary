@@ -62,8 +62,8 @@ const Book = ({ title, author, imageSrc, spineColor, titleColor, index, activeIn
 
         <div 
           style={{ backgroundColor: spineColor, transform: rotateIndex() ?  "rotateY(-60deg)" : "rotateY(0deg)" }} 
-          className={clsx("z-10 duration-500 absolute w-14 h-60 origin-right flex justify-center brightness-[0.8] contrast-[2]", `bg-[${spineColor}]`)}>
-          <p className={clsx("py-3 text-sm line-clamp-2", `text-[${titleColor}]`)} style={{color: titleColor, writingMode: "sideways-rl" }}>{title}</p>
+          className={clsx("z-10 duration-500 absolute w-14 h-60 origin-right flex justify-center brightness-[0.8] contrast-[1.5]", `bg-[${spineColor}]`)}>
+          <p className={clsx("py-3 text-smb font-semibold line-clamp-2", `text-[${titleColor}]`)} style={{color: titleColor, writingMode: "sideways-rl" }}>{title}</p>
           <span
               aria-hidden
               className="pointer-events-none fixed top-0 right-0 z-50 h-full w-full opacity-40 [filter:url(#paper)]"
@@ -75,7 +75,7 @@ const Book = ({ title, author, imageSrc, spineColor, titleColor, index, activeIn
           {(!hover || !alwaysDisplay) && 
           <Image className="pointer-events-none w-40 h-60" src={imageSrc} fill={true} style={{objectFit: "cover"}} sizes="160px 240px" alt="" />}
           <div 
-            className="w-40 h-60 z-20 p-2 bg-gray-900 text-slate-50 flex flex-col justify-between ">
+            className="w-40 h-60 z-20 pl-4 p-2 bg-gray-900 text-slate-50 flex flex-col justify-between ">
             <p className="text-lg text-ellipsis line-clamp-6">{title}</p>
             <p className="text-md line-clamp-1 text-ellipsis">{author}</p>
           </div>

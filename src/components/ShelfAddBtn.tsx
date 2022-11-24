@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { trpc } from "../utils/trpc"
-import { IoMdAddCircle } from "react-icons/io"
+import { BiPlusMedical } from "react-icons/bi"
+import clsx from "clsx"
 
 const ShelfAddBtn = () => {
   
@@ -27,26 +28,40 @@ const ShelfAddBtn = () => {
   }
 
   return (
-    <div className="w-44 self-center">
-      {showInput 
-        ?<form onSubmit={handleSubmit} className="flex">
-          <input 
-            className="w-44 bg-transparent text-center py-1 outline-none border-b-2 border-stone-800"
-            type="text" 
-            value={name} 
-            onChange={(e) => setName(e.currentTarget.value)} 
-            onBlur={() => setShowInput(false)}
-            placeholder={name}
-            autoFocus={true}
-            maxLength={50}
-          />
-        </form>
-        :<button 
-          className="flex items-center justify-center gap-2 w-full py-1 rounded-lg text-rose-200 bg-stone-700"
-          onClick={() => setShowInput(true)}>
-          Add New Shelf <IoMdAddCircle size={18} />
-        </button>}
-    </div>
+      // <form onSubmit={handleSubmit} className="bg-primary">
+      //   <div className="flex justify-center w-4/5">
+      //     <input 
+      //       className={clsx("w-44 block bg-secondary text-center outline-none rounded-l"
+      //       , "placeholder:text-primary font-semibold")}
+      //       type="text" 
+      //       value={name} 
+      //       onChange={(e) => setName(e.currentTarget.value)} 
+      //       onBlur={() => setShowInput(false)}
+      //       placeholder="Add a shelf"
+      //       autoFocus={true}
+      //       maxLength={50}
+      //     />
+      //       <button className="h-full w-8 border bg-primary" type="submit">
+      //         <BiPlusMedical />
+      //       </button>
+      //   </div>
+      // </form>
+
+    <form onSubmit={handleSubmit} className="bg-transparent w-4/5 h-8 mx-auto flex justify-between rounded-l-lg rounded-r-lg mb-3">
+      <input 
+        className="bg-secondary w-full h-full blockitems-center text-primary rounded-l-lg px-2 outline-none placeholder:text-primary focus:border border focus:"
+        type="text" 
+        value={name} 
+        onInput={(e) => setName(e.currentTarget.value)} 
+        onBlur={() => setShowInput(false)}
+        placeholder="Add a shelf"
+        autoFocus={true}
+        maxLength={50}
+      />
+      <button className="flex bg-blue-700 w-10 h-full rounded-r-lg">
+        <BiPlusMedical className="m-auto"/>
+      </button>
+    </form>
   )
 }
 

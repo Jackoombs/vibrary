@@ -1,8 +1,10 @@
 import { useCallback, useEffect, useState } from "react"
-import { env } from "../env/client.mjs"
+import { env } from "../../env/client.mjs"
 import BookShelf from "./BookshelfSearch"
 import { debounce } from "lodash"
-import { type BookType } from "../types/book.js"
+import { type BookType } from "../../types/book.js"
+import { FaSearch } from "react-icons/fa"
+import clsx from "clsx"
 
 interface Props {
   shelfName: string
@@ -25,6 +27,7 @@ const BookSearch = ({ shelfName, setSearchActive }: Props) => {
 
   const [query, setQuery] = useState("")
   const [books, setBooks] = useState<BookType[]>([])
+  const [focus, setFocus] = useState(false)
 
   const formatQuery = (query: string) => {
     return query
@@ -56,7 +59,6 @@ const BookSearch = ({ shelfName, setSearchActive }: Props) => {
         const res = await fetch(URL + formattedQuery)
         const data = await res.json()
         if (data.items) {
-          console.log(data.items)
           setBooks(formatSearchResults(data.items))
           setSearchActive(true)
         } else {
@@ -84,15 +86,21 @@ const BookSearch = ({ shelfName, setSearchActive }: Props) => {
 
   return (
     <>
-    <div className="flex justify-center items-center gap-4 px-8 py-3 rounded-full w-max mx-auto bg-slate-50 text-teal-900">
-      <label htmlFor="title">Add a new title: </label>
+    <div className="relative flex justify-center items-center gap-4 py-3 rounded-full w-max mx-auto">
+      <label className="hidden" htmlFor="title">Book Title Search</label>
       <input 
-        className="bg-slate-50 border border-teal-900 p-2 rounded-full"
+        className="bg-primary text-center text-lg text-secondary font-semibold placeholder:text-secondary border-2 border-primary px-2 py-[2px] rounded-full"
         name="title" 
         type="text" 
         onChange={debouncedChangeHandler}
-        placeholder="eg. Moby Dick" 
+        onFocus={() => setFocus(true)}
+        onBlur={() => setFocus(false)}
       />
+      <div 
+        className={clsx("flex items-center gap-2 text-secondary pointer-events-none font-semibold",
+        !focus && !query ? "absolute" : "hidden")}>
+        <FaSearch size={18}/> Find a new Book
+      </div>
     </div>
     {books.length > 0 && <BookShelf query={query} books={books} setBooks={setBooks} shelfName={shelfName} setSearchActive={setSearchActive} initialIndex={undefined} alwaysDisplay={true}/>}
     </>

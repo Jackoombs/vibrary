@@ -2,15 +2,21 @@ import { type AppType } from "next/app";
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { type NextFontWithVariable } from "@next/font/dist/types";
-import { IBM_Plex_Sans } from "@next/font/google";
+import { Montserrat, Space_Grotesk } from "@next/font/google";
 
 import { trpc } from "../utils/trpc";
 
 import "../styles/globals.css";
+import clsx from "clsx";
 
-const ibm: NextFontWithVariable = IBM_Plex_Sans({
+const montserrat: NextFontWithVariable = Montserrat({
   weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-ibm",
+  variable: "--font-montserrat",
+});
+
+const space: NextFontWithVariable = Space_Grotesk({
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-space",
 });
 
 const MyApp: AppType<{ session: Session | null }> = ({
@@ -19,7 +25,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <div className={ibm.variable + " min-h-screen bg-rose-200 text-stone-700 font-sans"}>
+      <div className={clsx(montserrat.variable, space.variable, " min-h-screen bg-secondary text-primary font-sans")}>
         <Component {...pageProps} />
       </div>
     </SessionProvider>

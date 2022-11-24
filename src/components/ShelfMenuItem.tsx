@@ -9,15 +9,19 @@ interface Props {
 
 const ShelfMenuItem = ({ name, count, shelfName, setShelfName }: Props) => {
 
-  console.log(shelfName, name)
   return(
     <li 
-      className={clsx("py-1 ml-3 px-3 w-max rounded-lg duration-150 hover:bg-stone-700 hover:text-rose-200",
-      shelfName === name ? "bg-stone-700 text-rose-200 cursor-default" : "cursor-pointer"
+      className={clsx("z-10 relative py-1 ml-3 px-3 w-max rounded-lg duration-150",
+      shelfName === name ? "text-primary cursor-default" : "cursor-pointer text-secondary",
+      "hover:text-primary hover:bg-secondary"
       )}
       onClick={() => setShelfName(name)} 
     >
-      {name} ({count})
+      <div 
+        className={clsx("-z-10 absolute top-0 right-0 w-[180%] h-full rounded-lg bg-secondary hover:block",
+        shelfName === name ? "block" : "hidden")}>
+      </div>
+      <p>{name} ({count})</p>
     </li>
   )
 }
