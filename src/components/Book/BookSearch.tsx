@@ -89,7 +89,7 @@ const BookSearch = ({ shelfName, setSearchActive }: Props) => {
     <div className="relative flex justify-center items-center gap-4 py-3 rounded-full w-max mx-auto">
       <label className="hidden" htmlFor="title">Book Title Search</label>
       <input 
-        className="bg-primary text-center text-lg text-secondary font-semibold placeholder:text-secondary border-2 border-primary px-2 py-[2px] rounded-full"
+        className="bg-white text-center text-lg text-primary font-semibold border-2 border-primary px-2 py-[2px] rounded-full"
         name="title" 
         type="text" 
         onChange={debouncedChangeHandler}
@@ -97,7 +97,7 @@ const BookSearch = ({ shelfName, setSearchActive }: Props) => {
         onBlur={() => setFocus(false)}
       />
       <div 
-        className={clsx("flex items-center gap-2 text-secondary pointer-events-none font-semibold",
+        className={clsx("flex items-center gap-2 text-primary pointer-events-none font-semibold",
         !focus && !query ? "absolute" : "hidden")}>
         <FaSearch size={18}/> Find a new Book
       </div>
