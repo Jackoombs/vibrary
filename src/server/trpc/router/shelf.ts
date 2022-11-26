@@ -50,5 +50,18 @@ export const shelfRouter = router({
           }
         })
       }
-    })
+    }),
+    delete: publicProcedure
+      .input(z.object({
+        name: z.string()
+      }))
+      .mutation( ({ctx, input}) => {
+        if (ctx.session?.user?.id){
+          return ctx.prisma.shelf.delete({
+            where: {
+              name: input.name,
+            }
+          })
+        }
+      }),
 })

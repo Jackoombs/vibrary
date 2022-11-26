@@ -1,9 +1,8 @@
 import { type NextPage } from "next";
 import { getSession } from "next-auth/react";
 import { type GetServerSidePropsContext } from "next";
-import BookSearch from "../components/Book/BookSearch";
 import BookShelf from "../components/Book/Bookshelf";
-import ShelfMenuSidebar from "../components/ShelfMenuSidebar";
+import ShelfMenuSidebar from "../components/Shelf/ShelfMenuSidebar";
 import { useState } from "react";
 
 const Home: NextPage = () => {
