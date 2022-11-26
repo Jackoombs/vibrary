@@ -14,7 +14,7 @@ interface Props {
   index: number
   activeIndex: number | undefined
   setActiveIndex: React.Dispatch<React.SetStateAction<number | undefined>>
-  alwaysDisplay: boolean
+  alwaysDisplay?: boolean
 }
 
 const Book = ({ title, author, imageSrc, spineColor, titleColor, index, activeIndex, setActiveIndex, alwaysDisplay  }: Props) => {
@@ -33,7 +33,7 @@ const Book = ({ title, author, imageSrc, spineColor, titleColor, index, activeIn
   return (
     <motion.div 
       className="flex"
-      animate={{minWidth: rotateIndex() ? "205px": "56px"}} 
+      animate={{minWidth: rotateIndex() ? "206px": "56px"}} 
       transition={{duration: 0.2, delay: index === activeIndex ? 0 : 0.1}}
       style={{minWidth: "56px"}}
     >

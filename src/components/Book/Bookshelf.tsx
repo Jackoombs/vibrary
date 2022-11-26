@@ -9,7 +9,7 @@ interface Props {
   alwaysDisplay: boolean
 }
 
-function BookShelf({ shelfName, initialIndex, alwaysDisplay }: Props) {
+function BookShelf({ shelfName, initialIndex }: Props) {
 
   const [activeIndex, setActiveIndex] = useState(initialIndex)
   const [searchActive, setSearchActive] = useState(false)
@@ -32,10 +32,10 @@ function BookShelf({ shelfName, initialIndex, alwaysDisplay }: Props) {
           {isLoading && "It's loading"}
           {data && books?.map(({title, author, id, imageSrc, spineColor, titleColor}, index) => (
               <div key={index} className="flex flex-col items-center" >
-                <Book {...{title, author, id, imageSrc, spineColor, titleColor, index, activeIndex, setActiveIndex, alwaysDisplay}} />
+                <Book {...{title, author, id, imageSrc, spineColor, titleColor, index, activeIndex, setActiveIndex}} />
               </div>
             ))}
-          {(!isLoading && !books) && <h2>Use the search bar to find books to add to your shelf</h2>}
+          {(!isLoading && !books?.length) && <p className="text-lg font-medium text-center">Use the search bar above to find <br /> books to add to your shelf</p>}
         </div>}
     </div>
   )
