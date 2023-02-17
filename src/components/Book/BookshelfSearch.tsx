@@ -57,6 +57,7 @@ function BookshelfSearch({
                   activeIndex,
                   setActiveIndex,
                   alwaysDisplay,
+                  read: false,
                 }}
               />
               <BookAddBtn
