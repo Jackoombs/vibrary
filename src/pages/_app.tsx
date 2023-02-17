@@ -25,7 +25,14 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <div className={clsx(montserrat.variable, space.variable, " min-h-screen bg-secondary text-primary font-sans")}>
+      <div
+        id="root"
+        className={clsx(
+          montserrat.variable,
+          space.variable,
+          "min-h-screen bg-secondary font-sans text-primary"
+        )}
+      >
         <Component {...pageProps} />
       </div>
     </SessionProvider>
