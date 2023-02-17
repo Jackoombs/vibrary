@@ -1,44 +1,45 @@
-import { useEffect, useState } from "react"
-import Book from "../Book/Book"
-import { trpc } from "../../utils/trpc"
-import BookSearch from "./BookSearch"
+import { useState } from "react";
+import Book from "../Book/Book";
+import type { Book as BookType } from "@prisma/client";
 
 interface Props {
-  shelfName: string
-  initialIndex: number | undefined
-  alwaysDisplay: boolean
+  initialIndex: number | undefined;
+  books: BookType[];
 }
 
-function BookShelf({ shelfName, initialIndex }: Props) {
-
-  const [activeIndex, setActiveIndex] = useState(initialIndex)
-  const [searchActive, setSearchActive] = useState(false)
-
-  useEffect(() => {
-    setActiveIndex(0)
-  },[searchActive])
-
-  const {data, isLoading, error} = trpc.shelf.getShelf.useQuery({name: `${shelfName}`})
-  const books = data?.books
-
-  if (error) return <h1>Error!</h1>
+function BookShelf({ initialIndex, books }: Props) {
+  const [activeIndex, setActiveIndex] = useState(initialIndex);
 
   return (
-    <div className="flex flex-col pt-10">
-      <h2 className="text-4xl font-medium w-full mb-3">{shelfName}</h2>
-      <BookSearch shelfName={shelfName} setSearchActive={setSearchActive} />
-      {!searchActive &&       
-        <div className='flex justify-center gap-[1px] mx-auto pt-10'>
-          {isLoading && "It's loading"}
-          {data && books?.map(({title, author, id, imageSrc, spineColor, titleColor}, index) => (
-              <div key={index} className="flex flex-col items-center" >
-                <Book {...{title, author, id, imageSrc, spineColor, titleColor, index, activeIndex, setActiveIndex}} />
-              </div>
-            ))}
-          {(!isLoading && !books?.length) && <p className="text-lg font-medium text-center">Use the search bar above to find <br /> books to add to your shelf</p>}
-        </div>}
+    <div className="overflow-x-hidden">
+      <div className="flex max-w-full justify-center gap-[1px] overflow-x-visible">
+        {books.map(
+          (
+            { title, author, id, imageSrc, spineColor, titleColor, read },
+            index
+          ) => (
+            <div key={id} className="flex flex-col items-center gap-3">
+              <Book
+                {...{
+                  title,
+                  author,
+                  id,
+                  imageSrc,
+                  spineColor,
+                  titleColor,
+                  index,
+                  activeIndex,
+                  setActiveIndex,
+                  read,
+                }}
+                showButtonOptions
+              />
+            </div>
+          )
+        )}
+      </div>
     </div>
-  )
+  );
 }
 
-export default BookShelf
+export default BookShelf;
