@@ -73,6 +73,7 @@ model Book {
   pageCount       Int?
   publicationDate String?
   shelves         Shelf[]
+  read            Boolean       
 
   user         User    @relation(fields: [userId], references: [id])
   userId       String
