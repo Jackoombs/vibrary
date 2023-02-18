@@ -82,7 +82,7 @@ model Book {
 
 model Shelf {
   id        String    @id @default(cuid())
-  name      String    @unique
+  name      String   
   books     Book[]
   isDefault Boolean   @default(false)
 

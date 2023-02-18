@@ -9,18 +9,21 @@ export const shelfRouter = router({
       })
     )
     .query(({ ctx, input }) => {
-      return ctx.prisma.shelf.findUnique({
-        where: {
-          name: input.name,
-        },
-        include: {
-          books: {
-            orderBy: {
-              createdAt: "desc",
+      if (ctx.session?.user?.id) {
+        return ctx.prisma.shelf.findFirst({
+          where: {
+            name: input.name,
+            userId: ctx.session.user.id,
+          },
+          include: {
+            books: {
+              orderBy: {
+                createdAt: "desc",
+              },
             },
           },
-        },
-      });
+        });
+      }
     }),
   getNameList: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.shelf.findMany({

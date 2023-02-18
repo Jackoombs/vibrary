@@ -6,6 +6,7 @@ import clsx from "clsx";
 import ShelfAddModal from "./ShelfAddModal";
 import ShelfDeleteModal from "./ShelfDeleteModal";
 import { IoMdClose } from "react-icons/io";
+import { signOut } from "next-auth/react";
 
 interface Props {
   shelfName: string;
@@ -114,6 +115,9 @@ const ShelfMenuSidebar = ({
           {...{ setDeleteModalOpen, setShelfName }}
         />
       )}
+      <button className="mb-auto" onClick={() => signOut()}>
+        Sign out
+      </button>
     </aside>
   );
 };
