@@ -1,6 +1,6 @@
 import NextAuth, { type NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import GitHubProvider from "next-auth/providers/github"
+import GitHubProvider from "next-auth/providers/github";
 // Prisma adapter for NextAuth, optional and can be removed
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
@@ -9,6 +9,7 @@ import { prisma } from "../../../server/db/client";
 
 export const authOptions: NextAuthOptions = {
   // Include user.id on session
+  debug: true,
   callbacks: {
     session({ session, user }) {
       if (session.user) {
@@ -31,20 +32,21 @@ export const authOptions: NextAuthOptions = {
           image: profile.picture,
           shelves: {
             create: [
-              { 
+              {
                 name: "All Books",
-                isDefault: true
+                isDefault: true,
               },
-              { 
+              {
                 name: "Read",
-                isDefault: true
-              },              { 
-                name: "Not Yet Read",
-                isDefault: true
+                isDefault: true,
               },
-            ]
-          }
-        }
+              {
+                name: "Not Yet Read",
+                isDefault: true,
+              },
+            ],
+          },
+        };
       },
     }),
     GitHubProvider({
