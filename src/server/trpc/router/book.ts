@@ -30,9 +30,24 @@ export const bookRouter = router({
             read: false,
             shelves: {
               connect: [
-                { name: input.shelfName },
-                { name: "All Books" },
-                { name: "Not Yet Read" },
+                {
+                  userId_name: {
+                    userId: ctx.session.user.id,
+                    name: input.shelfName,
+                  },
+                },
+                {
+                  userId_name: {
+                    userId: ctx.session.user.id,
+                    name: "All Books",
+                  },
+                },
+                {
+                  userId_name: {
+                    userId: ctx.session.user.id,
+                    name: "Not Yet Read",
+                  },
+                },
               ],
             },
           },
@@ -97,8 +112,22 @@ export const bookRouter = router({
           data: {
             read: input.read,
             shelves: {
-              connect: [{ name: input.read ? "Read" : "Not Yet Read" }],
-              disconnect: [{ name: !input.read ? "Read" : "Not Yet Read" }],
+              connect: [
+                {
+                  userId_name: {
+                    name: input.read ? "Read" : "Not Yet Read",
+                    userId: ctx.session.user.id,
+                  },
+                },
+              ],
+              disconnect: [
+                {
+                  userId_name: {
+                    name: !input.read ? "Read" : "Not Yet Read",
+                    userId: ctx.session.user.id,
+                  },
+                },
+              ],
             },
           },
         });
