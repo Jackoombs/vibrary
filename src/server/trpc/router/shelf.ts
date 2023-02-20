@@ -57,19 +57,13 @@ export const shelfRouter = router({
         });
       }
     }),
-  delete: publicProcedure
-    .input(
-      z.object({
-        name: z.string(),
-      })
-    )
-    .mutation(({ ctx, input }) => {
-      if (ctx.session?.user?.id) {
-        return ctx.prisma.shelf.delete({
-          where: {
-            name: input.name,
-          },
-        });
-      }
-    }),
+  delete: publicProcedure.input(z.string()).mutation(({ ctx, input }) => {
+    if (ctx.session?.user?.id) {
+      return ctx.prisma.shelf.delete({
+        where: {
+          userId_name: { userId: ctx.session.user.id, name: input },
+        },
+      });
+    }
+  }),
 });
