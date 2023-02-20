@@ -41,73 +41,73 @@ const ShelfMenuSidebar = ({
   return (
     <aside
       className={clsx(
-        "z-[50] flex min-h-screen w-80 flex-col bg-primary px-8 text-secondary",
+        "z-[50] flex min-h-screen w-80 flex-col justify-between bg-primary px-8 py-10 text-secondary",
         className
       )}
       onPointerOver={() => setIsHover(true)}
       onPointerOut={() => setIsHover(false)}
     >
-      {setShelfMenuOpen && (
-        <button
-          onClick={() => setShelfMenuOpen(false)}
-          className="self-end py-4 text-3xl"
-        >
-          {<IoMdClose />}
-        </button>
-      )}
-      <h1 className="pb-8 text-center font-space text-7xl font-light lg:py-8">
-        vibrary
-      </h1>
-      <div className="flex items-center justify-between pb-6">
-        <h2 className="text-2xl font-medium">Your Shelves</h2>
-        <button className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-md duration-150 hover:bg-secondary hover:text-primary">
-          <GoPlus
-            onClick={() => setAddModalOpen(true)}
-            className={clsx(
-              "duration-150",
-              !isHover ? "opacity-0" : "opacity-100"
-            )}
-            size={25}
-          />
-        </button>
-      </div>
-      <ul className="flex flex-col gap-2">
-        {data.map((shelf: Shelf) => {
-          if (shelf.isDefault)
-            return (
-              <ShelfMenuItem
-                key={shelf.name}
-                name={shelf.name}
-                count={shelf["_count"].books}
-                shelfName={shelfName}
-                setShelfName={setShelfName}
-                showDelete={false}
-                isHover={isHover}
-                setDeleteModalOpen={setDeleteModalOpen}
-              />
-            );
-        })}
-
-        <div className="py-6 px-3">
-          <hr className="border-t-2 border-secondary" />
+      <div>
+        {setShelfMenuOpen && (
+          <button
+            onClick={() => setShelfMenuOpen(false)}
+            className="self-end py-4 text-3xl"
+          >
+            {<IoMdClose />}
+          </button>
+        )}
+        <h1 className="pb-8 text-center font-space text-7xl font-light">
+          vibrary
+        </h1>
+        <div className="flex items-center justify-between pb-6">
+          <h2 className="text-2xl font-medium">Your Shelves</h2>
+          <button className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-md duration-150 hover:bg-secondary hover:text-primary">
+            <GoPlus
+              onClick={() => setAddModalOpen(true)}
+              className={clsx(
+                "duration-150",
+                !isHover ? "opacity-0" : "opacity-100"
+              )}
+              size={25}
+            />
+          </button>
         </div>
-
-        {data.map((shelf: Shelf) => {
-          if (!shelf.isDefault)
-            return (
-              <ShelfMenuItem
-                key={shelf.name}
-                name={shelf.name}
-                count={shelf["_count"].books}
-                shelfName={shelfName}
-                setShelfName={setShelfName}
-                showDelete={true}
-                isHover={isHover}
-                setDeleteModalOpen={setDeleteModalOpen}
-              />
-            );
-        })}
-      </ul>
+        <ul className="flex flex-col gap-2">
+          {data.map((shelf: Shelf) => {
+            if (shelf.isDefault)
+              return (
+                <ShelfMenuItem
+                  key={shelf.name}
+                  name={shelf.name}
+                  count={shelf["_count"].books}
+                  shelfName={shelfName}
+                  setShelfName={setShelfName}
+                  showDelete={false}
+                  isHover={isHover}
+                  setDeleteModalOpen={setDeleteModalOpen}
+                />
+              );
+          })}
+          <div className="py-6 px-3">
+            <hr className="border-t-2 border-secondary" />
+          </div>
+          {data.map((shelf: Shelf) => {
+            if (!shelf.isDefault)
+              return (
+                <ShelfMenuItem
+                  key={shelf.name}
+                  name={shelf.name}
+                  count={shelf["_count"].books}
+                  shelfName={shelfName}
+                  setShelfName={setShelfName}
+                  showDelete={true}
+                  isHover={isHover}
+                  setDeleteModalOpen={setDeleteModalOpen}
+                />
+              );
+          })}
+        </ul>
+      </div>
       {addModalOpen && <ShelfAddModal {...{ setAddModalOpen, setShelfName }} />}
       {deleteModalOpen && (
         <ShelfDeleteModal
@@ -115,7 +115,7 @@ const ShelfMenuSidebar = ({
           {...{ setDeleteModalOpen, setShelfName }}
         />
       )}
-      <button className="mb-auto" onClick={() => signOut()}>
+      <button className="text-2xl font-semibold" onClick={() => signOut()}>
         Sign out
       </button>
     </aside>
