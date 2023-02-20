@@ -4,7 +4,6 @@ import BookShelf from "./Bookshelf";
 
 interface Props {
   shelfName: string;
-  booksPerShelf: number;
   searchActive: boolean;
 }
 
