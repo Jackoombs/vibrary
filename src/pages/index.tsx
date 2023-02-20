@@ -17,7 +17,7 @@ const Home: NextPage = () => {
       <div className="mx-auto">
         <div className="flex justify-between">
           <ShelfMenuSidebar
-            className="hidden lg:block"
+            className="hidden lg:flex"
             {...{ shelfName, setShelfName }}
           />
           {shelfMenuOpen && (
@@ -26,15 +26,16 @@ const Home: NextPage = () => {
               {...{ shelfName, setShelfName, setShelfMenuOpen }}
             />
           )}
-          <div className="w-full px-4 pt-6 lg:pt-10 xl:px-12 overflow-visible">
+          <div className="w-full overflow-visible px-4 pt-6 lg:pt-10 xl:px-12">
             <main className="flex w-full flex-col gap-5 overflow-visible lg:gap-8">
               <ShelfMenuBtn {...{ shelfMenuOpen, setShelfMenuOpen }} />
-              <h2 className="w-full text-4xl font-medium">{shelfName}</h2>
               <BookSearch
                 shelfName={shelfName}
                 setSearchActive={setSearchActive}
               />
-              <Bookcase booksPerShelf={4} {...{ shelfName, searchActive }} />
+              <h2 className="w-full text-4xl font-medium">{shelfName}</h2>
+
+              <Bookcase {...{ shelfName, searchActive }} />
             </main>
           </div>
         </div>
