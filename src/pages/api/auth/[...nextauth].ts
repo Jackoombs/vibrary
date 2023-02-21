@@ -22,9 +22,33 @@ export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
   adapter: PrismaAdapter(prisma),
   providers: [
-    DiscordProvider({
-      clientId: env.DISCORD_CLIENT_ID,
-      clientSecret: env.DISCORD_CLIENT_SECRET,
+    GoogleProvider({
+      clientId: env.GOOGLE_CLIENT_ID,
+      clientSecret: env.GOOGLE_CLIENT_SECRET,
+      profile(profile) {
+        return {
+          id: profile.sub,
+          name: profile.name,
+          email: profile.email,
+          image: profile.picture,
+          shelves: {
+            create: [
+              {
+                name: "All Books",
+                isDefault: true,
+              },
+              {
+                name: "Read",
+                isDefault: true,
+              },
+              {
+                name: "Not Yet Read",
+                isDefault: true,
+              },
+            ],
+          },
+        };
+      },
     }),
     // ...add more providers here
   ],
