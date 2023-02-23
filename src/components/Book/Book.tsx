@@ -74,7 +74,6 @@ const Book = ({
         className={clsx("flex", className)}
         animate={{ minWidth: rotateIndex() ? "206px" : "56px" }}
         transition={{ duration: 0.2, delay: index === activeIndex ? 0 : 0.1 }}
-        style={{ minWidth: "56px" }}
       >
         <div
           onClick={handleClick}
@@ -114,22 +113,22 @@ const Book = ({
               transform: rotateIndex() ? "rotateY(-60deg)" : "rotateY(0deg)",
             }}
             className={clsx(
-              "absolute z-10 flex h-60 w-14 origin-right justify-center rounded-md brightness-[0.8] contrast-[1.75] duration-500",
+              "xl absolute z-10 flex h-60 w-14 origin-right justify-center overflow-hidden rounded-md rounded-tr brightness-[0.8] contrast-[1.75] duration-500",
               `bg-[${spineColor}]`
             )}
           >
             <p
               className={clsx(
-                "text-smb py-3 font-semibold line-clamp-2",
+                "py-3 text-sm font-semibold line-clamp-2",
                 `text-[${titleColor}]`
               )}
-              style={{ color: titleColor, writingMode: "sideways-rl" }}
+              style={{ color: titleColor, writingMode: "vertical-rl" }}
             >
               {title}
             </p>
             <span
               aria-hidden
-              className="pointer-events-none fixed top-0 right-0 z-50 h-full w-full opacity-40 [filter:url(#paper)]"
+              className="pointer-events-none fixed top-0 right-0 z-50 h-full w-full rounded-xl opacity-40 [filter:url(#paper)]"
             />
           </div>
           <div
