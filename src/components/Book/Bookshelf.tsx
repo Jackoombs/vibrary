@@ -12,7 +12,7 @@ function BookShelf({ initialIndex, books }: Props) {
 
   return (
     <div className="overflow-x-hidden">
-      <div className="flex max-w-full justify-center gap-[1px] overflow-x-visible">
+      <div className="flex max-w-full justify-center gap-1  overflow-x-visible">
         {books.map(
           (
             { title, author, id, imageSrc, spineColor, titleColor, read },
