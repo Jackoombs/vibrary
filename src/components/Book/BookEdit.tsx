@@ -9,6 +9,7 @@ import { useForm, Controller } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import { HexColorPicker, HexColorInput } from "react-colorful";
 import Book from "./Book";
+import { useShelfContext } from "../../utils/useShelfContext";
 
 interface Props {
   title: string;
@@ -29,6 +30,7 @@ export const BookEdit = ({
 }: Props) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState<number | undefined>(0);
+  const { shelfName } = useShelfContext();
   const utils = trpc.useContext();
 
   const bookSchema = z.object({
@@ -47,12 +49,33 @@ export const BookEdit = ({
   });
 
   const updateBook = trpc.book.update.useMutation({
-    async onSuccess() {
+    async onMutate(data) {
+      await utils.shelf.getShelf.cancel();
+      const currentShelf = utils.shelf.getShelf.getData({ name: shelfName });
+      if (currentShelf) {
+        const newBooks = currentShelf.books.map((book) => {
+          if (book.id === id) {
+            book.spineColor = data.spineColor;
+            book.titleColor = data.titleColor;
+            book.title = data.title;
+            book.imageSrc = data.imageSrc;
+            book.author = data.author;
+          }
+          return book;
+        });
+        utils.shelf.getShelf.setData({ ...currentShelf, books: newBooks });
+      }
+      setModalOpen(false);
+      return { currentShelf };
+    },
+    onError(err, oldShelf, ctx) {
+      if (ctx?.currentShelf) {
+        utils.shelf.getShelf.setData(ctx.currentShelf);
+      }
+    },
+    async onSettled() {
       utils.book.invalidate();
       utils.shelf.invalidate();
-    },
-    onError(error) {
-      console.log(error);
     },
   });
 
@@ -142,7 +165,6 @@ export const BookEdit = ({
                       {...{ onChange, value }}
                     />
                     <HexColorInput
-                      defaultValue={spineColor}
                       className="rounded-lg border-2 bg-secondary p-2 focus:border-red-500 focus:outline-none"
                       color={value}
                       onChange={onChange}
@@ -165,11 +187,9 @@ export const BookEdit = ({
                     <HexColorPicker
                       color={value}
                       style={{ width: "100%", height: "8rem" }}
-                      placeholder={titleColor}
                       {...{ onChange, value }}
                     />
                     <HexColorInput
-                      defaultValue={titleColor}
                       className="rounded-lg border-2 bg-secondary p-2 focus:border-red-500 focus:outline-none"
                       color={value}
                       onChange={onChange}
