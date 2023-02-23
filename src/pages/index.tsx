@@ -6,6 +6,15 @@ import { ShelfMenuBtn } from "../components/Shelf/ShelfMenuBtn";
 import ShelfMenuSidebar from "../components/Shelf/ShelfMenuSidebar";
 import BookSearch from "../components/Book/BookSearch";
 import { Bookcase } from "../components/Book/Bookcase";
+import { createContext } from "react";
+import { stubObject } from "lodash";
+
+export type Shelf = {
+  shelfName: string;
+  setShelfName: React.Dispatch<React.SetStateAction<string>>;
+};
+
+export const ShelfContext = createContext<Shelf | null>(null);
 
 const Home: NextPage = () => {
   const [shelfName, setShelfName] = useState("All Books");
@@ -13,7 +22,7 @@ const Home: NextPage = () => {
   const [searchActive, setSearchActive] = useState(false);
 
   return (
-    <>
+    <ShelfContext.Provider value={{ shelfName, setShelfName }}>
       <div className="mx-auto">
         <div className="flex justify-between">
           <ShelfMenuSidebar
@@ -40,7 +49,7 @@ const Home: NextPage = () => {
           </div>
         </div>
       </div>
-    </>
+    </ShelfContext.Provider>
   );
 };
 
