@@ -3,10 +3,9 @@ import { trpc } from "../../utils/trpc";
 import ShelfMenuItem from "./ShelfMenuItem";
 import { GoPlus } from "react-icons/go";
 import clsx from "clsx";
-import ShelfAddModal from "./ShelfAddModal";
-import ShelfDeleteModal from "./ShelfDeleteModal";
 import { IoMdClose } from "react-icons/io";
 import { signOut } from "next-auth/react";
+import { ShelfAdd } from "./ShelfAdd";
 
 interface Props {
   shelfName: string;
@@ -23,7 +22,6 @@ const ShelfMenuSidebar = ({
 }: Props) => {
   const [isHover, setIsHover] = useState(false);
   const [addModalOpen, setAddModalOpen] = useState(false);
-  const [deleteModalOpen, setDeleteModalOpen] = useState("");
 
   const { data, isLoading, error } = trpc.shelf.getNameList.useQuery();
 
@@ -61,16 +59,7 @@ const ShelfMenuSidebar = ({
         </h1>
         <div className="flex items-center justify-between pb-6">
           <h2 className="text-2xl font-medium">Your Shelves</h2>
-          <button className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-md duration-150 hover:bg-secondary hover:text-primary">
-            <GoPlus
-              onClick={() => setAddModalOpen(true)}
-              className={clsx(
-                "duration-150",
-                !isHover ? "opacity-0" : "opacity-100"
-              )}
-              size={25}
-            />
-          </button>
+          <ShelfAdd {...{ setShelfName, isHover }} />
         </div>
         <ul className="flex flex-col gap-2">
           {data.map((shelf: Shelf) => {
@@ -84,7 +73,6 @@ const ShelfMenuSidebar = ({
                   setShelfName={setShelfName}
                   showDelete={false}
                   isHover={isHover}
-                  setDeleteModalOpen={setDeleteModalOpen}
                 />
               );
           })}
@@ -102,19 +90,11 @@ const ShelfMenuSidebar = ({
                   setShelfName={setShelfName}
                   showDelete={true}
                   isHover={isHover}
-                  setDeleteModalOpen={setDeleteModalOpen}
                 />
               );
           })}
         </ul>
       </div>
-      {addModalOpen && <ShelfAddModal {...{ setAddModalOpen, setShelfName }} />}
-      {deleteModalOpen && (
-        <ShelfDeleteModal
-          shelfName={deleteModalOpen}
-          {...{ setDeleteModalOpen, setShelfName }}
-        />
-      )}
       <button className="text-2xl font-semibold" onClick={() => signOut()}>
         Sign out
       </button>

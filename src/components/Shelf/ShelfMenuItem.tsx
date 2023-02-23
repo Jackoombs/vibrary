@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import { ImBin } from "react-icons/im";
+import { ShelfDelete } from "./ShelfDelete";
 
 interface Props {
   name: string;
@@ -8,7 +9,6 @@ interface Props {
   showDelete: boolean;
   setShelfName: React.Dispatch<React.SetStateAction<string>>;
   isHover: boolean;
-  setDeleteModalOpen: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const ShelfMenuItem = ({
@@ -17,7 +17,6 @@ const ShelfMenuItem = ({
   shelfName,
   showDelete,
   setShelfName,
-  setDeleteModalOpen,
   isHover,
 }: Props) => {
   return (
@@ -40,19 +39,7 @@ const ShelfMenuItem = ({
           )}
         ></span>
       </p>
-      {showDelete && (
-        <button
-          className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg duration-150 hover:bg-secondary hover:text-primary"
-          onClick={() => setDeleteModalOpen(name)}
-        >
-          <ImBin
-            className={clsx(
-              "duration-150",
-              !isHover ? "opacity-0" : "opacity-100"
-            )}
-          />
-        </button>
-      )}
+      {showDelete && <ShelfDelete {...{ isHover, setShelfName, name }} />}
     </li>
   );
 };
