@@ -73,11 +73,11 @@ export const bookRouter = router({
     .input(
       z.object({
         id: string(),
-        title: z.string().optional(),
-        author: z.string().optional(),
-        imageSrc: z.string().optional(),
-        spineColor: z.string().optional(),
-        titleColor: z.string().optional(),
+        title: z.string(),
+        author: z.string(),
+        imageSrc: z.string(),
+        spineColor: z.string(),
+        titleColor: z.string(),
       })
     )
     .mutation(({ ctx, input }) => {
