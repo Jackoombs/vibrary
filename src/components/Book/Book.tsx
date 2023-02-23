@@ -114,7 +114,7 @@ const Book = ({
               transform: rotateIndex() ? "rotateY(-60deg)" : "rotateY(0deg)",
             }}
             className={clsx(
-              "absolute z-10 flex h-60 w-14 origin-right justify-center brightness-[0.8] contrast-[1.5] duration-500",
+              "absolute z-10 flex h-60 w-14 origin-right justify-center rounded-md brightness-[0.8] contrast-[1.75] duration-500",
               `bg-[${spineColor}]`
             )}
           >
@@ -139,16 +139,15 @@ const Book = ({
             className="absolute left-14 h-60 w-40 origin-left brightness-[0.8] contrast-[1.75] duration-500"
           >
             {(!hover || !alwaysDisplay) && (
-              <Image
-                className="pointer-events-none h-60 w-40"
+              <img
+                className="pointer-events-none relative z-20 h-60 w-40 object-cover"
                 src={imageSrc}
-                fill={true}
                 style={{ objectFit: "cover" }}
                 sizes="160px 240px"
                 alt=""
               />
             )}
-            <div className="z-20 flex h-60 w-40 flex-col justify-between bg-gray-900 p-2 pl-4 text-slate-50 ">
+            <div className="absolute left-0 top-0 flex h-60 w-40 flex-col justify-between bg-gray-900 p-2 pl-4 text-slate-50 ">
               <p className="text-ellipsis text-lg line-clamp-6">{title}</p>
               <p className="text-md text-ellipsis line-clamp-1">{author}</p>
             </div>
