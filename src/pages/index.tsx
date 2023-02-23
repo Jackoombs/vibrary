@@ -35,14 +35,16 @@ const Home: NextPage = () => {
               {...{ shelfName, setShelfName, setShelfMenuOpen }}
             />
           )}
-          <div className="w-full overflow-visible px-4 pt-6 lg:pt-10 xl:px-12">
+          <div className="w-full overflow-visible px-4 py-6 lg:py-10 xl:px-12">
             <main className="flex w-full flex-col gap-5 overflow-visible lg:gap-8">
               <ShelfMenuBtn {...{ shelfMenuOpen, setShelfMenuOpen }} />
               <BookSearch
                 shelfName={shelfName}
                 setSearchActive={setSearchActive}
               />
-              <h2 className="w-full text-4xl font-medium">{shelfName}</h2>
+              {!searchActive && (
+                <h2 className="w-full text-4xl font-medium">{shelfName}</h2>
+              )}
 
               <Bookcase {...{ shelfName, searchActive }} />
             </main>

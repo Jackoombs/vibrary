@@ -30,7 +30,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
         className={clsx(
           montserrat.variable,
           space.variable,
-          "min-h-screen bg-secondary font-sans text-primary"
+          "min-h-[100svh] bg-secondary font-sans text-primary"
         )}
       >
         <Component {...pageProps} />
