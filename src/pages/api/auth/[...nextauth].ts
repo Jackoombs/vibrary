@@ -22,15 +22,15 @@ export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
   adapter: PrismaAdapter(prisma),
   providers: [
-    GoogleProvider({
-      clientId: env.GOOGLE_CLIENT_ID,
-      clientSecret: env.GOOGLE_CLIENT_SECRET,
+    GitHubProvider({
+      clientId: env.GITHUB_CLIENT_ID,
+      clientSecret: env.GITHUB_CLIENT_SECRET,
       profile(profile) {
         return {
-          id: profile.sub,
-          name: profile.name,
+          id: profile.id,
+          name: profile.login,
           email: profile.email,
-          image: profile.picture,
+          image: profile.avatar_url,
           shelves: {
             create: [
               {
